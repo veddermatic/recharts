@@ -1,3 +1,112 @@
+## 2.0.0-beta.3 (Mar 13, 2020)
+
+### fix
+
+- fix range of ReferenceArea of BarChart, fix #2045
+- fix className of axis line, fix ##2024
+- fix ComposedChart when has multiple <Bar/>, fix #2031
+- fix ComposedChart when specify scale of <XAxis />, fix #2010
+
+### chore
+
+- update eslint and add .prettierrc
+
+## 2.0.0-beta.2 (Mar 10, 2020)
+
+### fix
+
+- Do word line calculation only when needed
+- Fixes arc angles when `cornerIsExternal` is used
+- Invert cartesian label position based on negative values
+- Fix usage of hooks in Tooltip, Label, Legend and Customized
+- Move draging-end listener to the window for brush 
+- Fix trigger after mouse leave
+- Added the angle as key which need to be used in the Label align
+- Rewrite index.js to index.ts, update scripts in package.json
+
+### feat
+
+- Added index to tickFormatter
+- Allow axis line customization through axisLine prop
+
+## 2.0.0-beta.1 (Dec 03, 2019)
+
+### fix
+
+- fix error parameters in `appendOffsetOfLegend`
+- fix style of <Area /> 
+
+## 2.0.0-beta.0 (Dec 03, 2019)
+
+### feat
+
+- Only support react@16
+- Use typescript to rewrite src/
+
+## 1.8.5 (Oct 22, 2019)
+
+### fix
+
+- revert [PR#1916](https://github.com/recharts/recharts/pull/1916)
+- fix Text update, fix #1914
+
+## 1.8.4 (Oct 22, 2019)
+
+### fix
+
+- Adding Composed chart to rescaled charts, to fix #1887
+
+## 1.8.3 (Oct 17, 2019)
+
+### fix
+
+- fix: rollback to componentWillReceiveProps, fix crash in react@15
+
+## 1.8.2 (Oct 17, 2019)
+
+### fix
+
+- Used UNSAFE_componentWillReceiveProps to replace componentDidUpdate
+
+## 1.8.1 (Oct 16, 2019)
+
+### fix
+
+- Fixed Text Component crash
+- Fixed eslint errors in src/
+
+
+### feat
+
+- Add props of <Brush /> to always show text
+- Add onClick event to sankey chart
+- Shape prop can be used without any other prop in reference area
+
+## 1.8.0 (Oct 15, 2019)
+
+### refactor
+
+- react unsafe methods refactored
+
+## 1.7.1 (Aug 13, 2019)
+
+### fix
+
+- Fix bar chart tooltip (#1837)
+
+## 1.7.0 (Aug 08, 2019)
+
+### feat
+
+- allow events on Text and Label components
+- Enable Tooltip's `translate` style
+- Added position props for ReferenceLine to allow to control offset of it
+
+### fix
+
+- handle `dataKey` as function, get correct data array for tooltip
+- fix style of legend in case of area and radar use fill for fallback color
+
 ## 1.6.2 (May 22, 2019)
 
 ### feat
@@ -44,7 +153,7 @@
 ### feat
 
 - allow aria-* attributes and "role", "focusable", "tabIndex" of charts, fix #1226, fix #1584
-- add new props "paylodUniqBy" to Tooltip and Legend 
+- add new props "paylodUniqBy" to Tooltip and Legend
 
 ## 1.4.4(Feb 15, 2019)
 

@@ -3,7 +3,7 @@
 
 'use strict';
 
-var path = require('path');
+const path = require('path');
 
 module.exports = function config(config) {
 
@@ -42,7 +42,7 @@ module.exports = function config(config) {
           /node_modules\/sinon\//,
         ],
         rules: [{
-          test: /\.js$/,
+          test: /\.(js|ts|tsx)$/,
           exclude: [
             path.resolve('node_modules/'),
           ],
@@ -51,6 +51,12 @@ module.exports = function config(config) {
           type: 'javascript/auto',
           test: /\.json$/,
           loader: 'json-loader',
+        }, {
+          test: /\.(ts|tsx)$/,
+          exclude: /node_modules/,
+          use: {
+            loader: 'ts-loader',
+          }
         }],
       },
       externals: {
@@ -64,8 +70,9 @@ module.exports = function config(config) {
       resolve: {
         alias: {
           sinon: 'sinon/pkg/sinon',
-          recharts: path.resolve('src/index.js'),
+          recharts: path.resolve('src/index.ts'),
         },
+        extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
       },
     },
     plugins: [

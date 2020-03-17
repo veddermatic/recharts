@@ -1,7 +1,9 @@
 /* eslint-disable react/no-multi-comp */
 import React, { Component } from 'react';
-import { BarChart, Bar, Brush, Cell, CartesianGrid, ReferenceLine, ReferenceDot,
-  XAxis, YAxis, Tooltip, Legend, ErrorBar, LabelList } from 'recharts';
+import {
+  BarChart, Bar, Brush, Cell, CartesianGrid, ReferenceLine, ReferenceArea,
+  XAxis, YAxis, Tooltip, Legend, ErrorBar, LabelList
+} from 'recharts';
 import { scaleOrdinal } from 'd3-scale';
 import { schemeCategory10 } from 'd3-scale-chromatic';
 import _ from 'lodash';
@@ -10,10 +12,10 @@ import { changeNumberOfData } from './utils';
 const colors = scaleOrdinal(schemeCategory10).range();
 
 const data = [
-  { name: 'food', uv: 2000, pv: 2013, amt: 4500, time: 1, uvError: [100, 50], pvError: [110, 20] },
-  { name: 'cosmetic', uv: 3300, pv: 2000, amt: 6500, time: 2, uvError: 120, pvError: 50 },
-  { name: 'storage', uv: 3200, pv: 1398, amt: 5000, time: 3, uvError: [120, 80], pvError: [200, 100] },
-  { name: 'digital', uv: 2800, pv: 2800, amt: 4000, time: 4, uvError: 100, pvError: 30 },
+  { name: 'food', uv: -2000, pv: -2013, amt: -4500, bmk: -4301, time: 1, uvError: [100, 50], pvError: [110, 20] },
+  { name: 'cosmetic', uv: 3300, pv: 2000, amt: 6500, bmk: 2000, time: 2, uvError: 120, pvError: 50 },
+  { name: 'storage', uv: 3200, pv: 1398, amt: 5000, bmk: 3000, time: 3, uvError: [120, 80], pvError: [200, 100] },
+  { name: 'digital', uv: 2800, pv: 2800, amt: 4000, bmk: 1500, time: 4, uvError: 100, pvError: 30 },
 ];
 
 const data01 = [
@@ -292,7 +294,7 @@ export default class Demo extends Component {
 
         <p>BarChart of layout vertical</p>
         <div className="bar-chart-wrapper">
-          <BarChart width={400} height={400} data={data.slice(0, 1)} maxBarSize={10}>
+          <BarChart width={400} height={400} data={data.slice(0, 1)} maxBarSize={10} barSize={10}>
             <XAxis padding={{ left: 20, right: 100 }} type="number" dataKey="time" />
             <YAxis type="number" />
             <CartesianGrid horizontal={false} />
@@ -370,6 +372,19 @@ export default class Demo extends Component {
           </BarChart>
         </div>
 
+        <p>BarChart with tickFormatter</p>
+        <div className="bar-chart-wrapper">
+          <BarChart width={500} height={300} data={data} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="name" tickFormatter={(value, i) => `${value}.${i}`} />
+            <YAxis />
+            <Tooltip />
+            <Legend />
+            <Bar dataKey="pv" fill="#8884d8" />
+            <Bar dataKey="uv" fill="#82ca9d" />
+          </BarChart>
+        </div>
+
         <p>BarChart of positive and negative values</p>
         <div className="bar-chart-wrapper" style={{ userSelect: 'none', WebkitUserSelect: 'none' }}>
           <BarChart width={1100} height={250} barGap={2} barSize={6} data={data02} margin={{ top: 20, right: 60, bottom: 0, left: 20 }}>
@@ -433,7 +448,7 @@ export default class Demo extends Component {
           </BarChart>
         </div>
 
-        <p>Horziontal BarChart</p>
+        <p>Vertical BarChart</p>
         <div className="area-chart-wrapper">
           <BarChart
             width={1400}
@@ -447,6 +462,57 @@ export default class Demo extends Component {
             <Tooltip />
             <Bar dataKey="uv" fill="#ff7300" maxBarSize={20} label radius={[10, 10, 10, 10]} />
             <Bar dataKey="pv" fill="#387908" />
+          </BarChart>
+        </div>
+
+        <p>Label alignment on Vertical BarChart</p>
+        <div className="area-chart-wrapper">
+          <BarChart
+            width={800}
+            height={800}
+            data={data}
+            margin={{ top: 20, right: 20, bottom: 20, left: 20 }}
+            layout="vertical"
+          >
+            <XAxis type="number" />
+            <YAxis dataKey="name" type="category" />
+            <Tooltip />
+            <Bar dataKey="uv" fill="#ff7300" label />
+            <Bar dataKey="pv" fill="#387908">
+              <LabelList position="right" invertNegativesOn="horizontal" />
+            </Bar>
+            <Bar dataKey="amt" fill="#683a98">
+              <LabelList position="left" />
+            </Bar>
+            <Bar dataKey="bmk" fill="#183a91">
+              <LabelList position="insideRight" fill="#ffffff" invertNegativesOn="horizontal" />
+            </Bar>
+          </BarChart>
+        </div>
+
+        <p>Label alignment on Horizontal BarChart</p>
+        <div className="area-chart-wrapper">
+          <BarChart
+            width={1000}
+            height={400}
+            data={data}
+            margin={{ top: 20, right: 20, bottom: 20, left: 20 }}
+            layout="horizontal"
+          >
+            <YAxis type="number" />
+            <XAxis dataKey="name" type="category" />
+            <Tooltip />
+            <ReferenceArea x1="food" x2="cosmetic"/>
+            <Bar dataKey="uv" fill="#ff7300" label />
+            <Bar dataKey="pv" fill="#387908">
+              <LabelList position="top" invertNegativesOn="vertical" />
+            </Bar>
+            <Bar dataKey="amt" fill="#683a98">
+              <LabelList position="bottom" />
+            </Bar>
+            <Bar dataKey="bmk" fill="#183a91">
+              <LabelList position="insideTop" fill="#ffffff" invertNegativesOn="vertical" />
+            </Bar>
           </BarChart>
         </div>
 

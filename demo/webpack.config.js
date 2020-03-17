@@ -1,5 +1,5 @@
-var path = require('path');
-var webpack = require('webpack');
+const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
   mode: 'development',
@@ -19,17 +19,27 @@ module.exports = {
   ],
   resolve: {
     alias: {
-      recharts: path.join(__dirname, '..', 'src/index.js'),
+      recharts: path.join(__dirname, '..', 'src/index.ts'),
     },
+    extensions: ['.js', '.jsx', '.json', '.ts', '.tsx'],
   },
   module: {
     rules: [{
-      test: /\.js$/,
+      test: /\.(js|ts|tsx)$/,
       loaders: ['babel-loader'],
       include: [
         __dirname,
         path.join(__dirname, '..', 'src'),
       ],
+    }, {
+      test: /\.(ts|tsx)$/,
+      exclude: /node_modules/,
+      include: [
+        path.resolve(__dirname, 'src'),
+      ],
+      use: {
+        loader: 'ts-loader',
+      }
     }],
   },
 };
